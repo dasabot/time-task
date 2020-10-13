@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+
+</div>
+</body>
+<script>
+    const wrap = document.querySelector(".wrap");
+    function generateTimes() {
+        const times = [];
+        for (let hours = 0; hours < 24; hours++) {
+            let strHours = String(hours).padStart(2, '0');
+            for (let minutes = 0; minutes < 60; minutes++) {
+                let strMinutes = String(minutes).padStart(2, '0');
+                `${strMinutes}`;
+                times.push(`${strHours}:${strMinutes}`);
+            }
+        }
+        return times;
+    }
+    const times = generateTimes();
+    const forbiddenValues = ["3", "4", "6", "7", "9"];
+    let newTimes = times.filter(time => {
+        const result = forbiddenValues.filter(forbiddenValue => time.indexOf(forbiddenValue) !== -1);
+        if (time[4] === "8" ||
+            time[1] === "8" ||
+            time[0] === "8" ||
+            time[3] === "8" ||
+            time[4] === "2" ||
+            time[0] === "5" ||
+            (time[3] === "2" && time[4] === "5")
+        ) {
+            return false;
+        }
+        if (result.length === 0) {
+            return true;
+        }
+    });
+    console.log(newTimes);
+
+    for (let i = 0; i < newTimes.length; i++) {
+        const time = newTimes[i];
+        const span = document.createElement('span');
+        span.textContent = time;
+        wrap.appendChild(span);
+    }
+
+
+</script>
+</html>
